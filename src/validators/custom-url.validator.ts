@@ -23,7 +23,6 @@ export class UrlCheckConstraint implements ValidatorConstraintInterface {
   constructor(private readonly linkService: LinkService) {}
 
   async validate(url: string, _validationArguments: ValidationArguments): Promise<boolean> {
-    console.log(url)
     const urlPattern = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/i;
     return urlPattern.test(url);
   }

@@ -23,7 +23,6 @@ export class LinkNameExistsConstraint implements ValidatorConstraintInterface {
 
   async validate(name: string, _validationArguments: ValidationArguments): Promise<boolean> {
     const existingLink = await this.linkService.findOneByName(name)
-    console.log(existingLink, name)
     if(existingLink !== null) return false
     return true
   }

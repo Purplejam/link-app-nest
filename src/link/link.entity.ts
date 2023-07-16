@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, getRepository } from 'typeorm'
 import { IsNotEmpty, IsUrl, 
 ValidatorConstraint, ValidationArguments, 
-ValidationOptions, ValidatorConstraintInterface, registerDecorator, Validate } from 'class-validator'
+ValidationOptions, ValidatorConstraintInterface, registerDecorator, Validate, Length } from 'class-validator'
 
 @Entity()
 export class Link {

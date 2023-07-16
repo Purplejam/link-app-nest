@@ -25,7 +25,6 @@ export class IsIdExistsConstraint implements ValidatorConstraintInterface {
   async validate(id: string, _validationArguments: ValidationArguments): Promise<boolean> {
     const linkId = +id
     const existingLink = await this.linkService.findOneById(linkId)
-    console.log(existingLink)
     if (existingLink === null) {return false}
     return true
   }

@@ -1,36 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, NotFoundException, Query } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Patch, Post, NotFoundException, Query, Res } from '@nestjs/common'
 import { LinkService } from './link.service'
 import { Link } from './link.entity'
-import { IsNotEmpty } from 'class-validator'
-import { LinkNameExists } from '../validators/custom-name.validator'
-import { UrlIsCorrect } from '../validators/custom-url.validator'
-import { CheckIfIdExists } from '../validators/existing-id.validator'
+import { CreateLinkDto, UpdateLinkParamsDto, UpdateLinkBodyDto} from './dto/link.dto'
+import { Response } from 'express'
 
-class CreateLinkDto {
-  @LinkNameExists()
-  @IsNotEmpty()
-  name: string
-
-  @UrlIsCorrect()
-  @IsNotEmpty()
-  url: string
-}
-
-class UpdateLinkParamsDto {
-  @CheckIfIdExists()
-  @IsNotEmpty()
-  id: string
-}
-
-class UpdateLinkBodyDto {
-  @LinkNameExists()
-  @IsNotEmpty()
-  name: string
-
-  @UrlIsCorrect()
-  @IsNotEmpty()
-  url: string
-}
 
 
 @Controller('links')
@@ -38,35 +11,69 @@ export class LinkController {
   constructor(private linkService: LinkService) {}
 
   @Post()
-  createLink(@Body() createLinkDto: CreateLinkDto): Promise<Link> {
+  async createLink(
+    @Body() createLinkDto: CreateLinkDto,
+    @Res() res: Response): Promise<Response | void> {
     const { name, url } = createLinkDto
-    return this.linkService.createLink(name, url)
+    const link = await this.linkService.createLink(name, url)
+    return res.status(201).json({
+      statusCode: 201,
+      link
+    })
   }
 
   @Get()
-  getLinks(): Promise<Link[]> {
-    return this.linkService.getLinks()
+  async getLinks(@Res() res: Response): Promise<Response | void> {
+    const links = await this.linkService.getLinks()
+    if(!links) {
+      throw new NotFoundException('Links not found, try again later')
+    }
+    return res.status(200).json({
+      statusCode: 200,
+      links
+    })
   }
 
   @Get(':name')
-  async findOneByName(@Param('name') name: string): Promise<Link | null> {
-    const link = await this.linkService.findOneByName(name);
-    console.log(link, name)
-    return link;
+  async findOneByName(
+    @Param('name') name: string,
+    @Res() res: Response): Promise<Response | void>  {
+    const link = await this.linkService.findOneByName(name)
+    if(!link) {
+      throw new NotFoundException('Link not found with this id')
+    }
+    return res.status(200).json({
+      statusCode: 200,
+      link
+    })
   }
 
   @Patch()
-  updateLink(
+  async updateLink(
     @Query() params: UpdateLinkParamsDto,
-    @Body() body: UpdateLinkBodyDto): Promise<Link> {
+    @Body() body: UpdateLinkBodyDto,
+    @Res() res: Response): Promise<Response | void> {
     const { name, url } = body
-    let { id } = params
-    return this.linkService.updateLink(+id, name, url)
+    const id = Number(params.id)
+    const link = await this.linkService.updateLink(id, name, url)
+    if(!link) {
+      throw new NotFoundException('Link not found')
+    }   
+    return res.status(201).json({
+      statusCode: 201,
+      link
+    })
   }
 
   @Delete()
-  deleteLink(@Query() params: UpdateLinkParamsDto): Promise<void> {
-    let { id } = params
-    return this.linkService.deleteLink(+id)
+  async deleteLink(
+    @Res() res: Response,
+    @Query() params: UpdateLinkParamsDto): Promise<Response | void> {
+    const id = Number(params.id)
+    const result = await this.linkService.deleteLink(id)
+
+    return res.status(202).json({
+      statusCode: 202
+    })
   }
 }
