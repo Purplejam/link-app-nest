@@ -8,12 +8,8 @@ import { UrlCheckConstraint } from '../validators/custom-url.validator'
 import { IsIdExistsConstraint } from '../validators/existing-id.validator'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Link])],
-  providers: [
-    LinkService, 
-    LinkNameExistsConstraint, 
-    UrlCheckConstraint, 
-    IsIdExistsConstraint],
-  controllers: [LinkController]
+	imports: [TypeOrmModule.forFeature([Link])],
+	providers: [LinkService, LinkNameExistsConstraint, UrlCheckConstraint, IsIdExistsConstraint],
+	controllers: [LinkController],
 })
 export class LinkModule {}
