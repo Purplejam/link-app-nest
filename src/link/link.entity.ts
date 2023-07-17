@@ -1,15 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, getRepository } from 'typeorm'
-import {
-	IsNotEmpty,
-	IsUrl,
-	ValidatorConstraint,
-	ValidationArguments,
-	ValidationOptions,
-	ValidatorConstraintInterface,
-	registerDecorator,
-	Validate,
-	Length,
-} from 'class-validator'
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
+import { IsNotEmpty } from 'class-validator'
 
 @Entity()
 export class Link {

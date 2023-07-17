@@ -8,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const database_module_1 = require("./database.module");
-const common_1 = require("@nestjs/common");
-const link_module_1 = require("./link/link.module");
-const serve_static_1 = require("@nestjs/serve-static");
 const path_1 = require("path");
+const link_module_1 = require("./link/link.module");
+const common_1 = require("@nestjs/common");
+const serve_static_1 = require("@nestjs/serve-static");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([

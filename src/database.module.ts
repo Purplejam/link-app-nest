@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { ConnectionOptions } from 'typeorm'
 import { ConfigModule } from '@nestjs/config'
 
 @Module({
@@ -18,10 +17,8 @@ import { ConfigModule } from '@nestjs/config'
 		}),
 	],
 })
-
 export class DatabaseModule {
 	constructor() {
 		console.log('Connected to the MySQL database')
-		
 	}
 }

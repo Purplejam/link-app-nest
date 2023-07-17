@@ -5,13 +5,7 @@ import {
 	ValidatorConstraintInterface,
 	ValidationArguments,
 } from 'class-validator'
-import { Injectable, Inject } from '@nestjs/common'
-import { getRepository } from 'typeorm'
-import { Link } from '../link/link.entity'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
-import { ModuleRef } from '@nestjs/core'
-import { LinkModule } from '../link/link.module'
+import { Injectable } from '@nestjs/common'
 import { LinkService } from '../link/link.service'
 
 @ValidatorConstraint({ name: 'checkIfIdExists', async: true })

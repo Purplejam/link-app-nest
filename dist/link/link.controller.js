@@ -80,7 +80,7 @@ let LinkController = class LinkController {
     deleteLink(res, params) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = Number(params.id);
-            const result = yield this.linkService.deleteLink(id);
+            yield this.linkService.deleteLink(id);
             return res.status(202).json({
                 statusCode: 202,
             });

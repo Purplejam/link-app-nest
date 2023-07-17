@@ -29,6 +29,7 @@ let UrlCheckConstraint = class UrlCheckConstraint {
     }
     validate(url, _validationArguments) {
         return __awaiter(this, void 0, void 0, function* () {
+            //Checks if a string is a url
             return (0, is_url_regex_1.urlRegexValidator)(url);
         });
     }

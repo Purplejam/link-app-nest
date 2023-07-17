@@ -10,11 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
-const core_1 = require("@nestjs/core");
 const app_module_1 = require("./app.module");
 const validation_exception_filter_1 = require("./validation-exception.filter");
-const common_1 = require("@nestjs/common");
+const core_1 = require("@nestjs/core");
 const class_validator_1 = require("class-validator");
+const common_1 = require("@nestjs/common");
 function bootstrap() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = yield core_1.NestFactory.create(app_module_1.AppModule);
@@ -25,10 +25,9 @@ function bootstrap() {
             forbidNonWhitelisted: true,
         }));
         (0, class_validator_1.useContainer)(app.select(app_module_1.AppModule), { fallbackOnErrors: true });
-        //app.use(express.static(path.resolve(__dirname, './client/build')))
         app.useGlobalFilters(new validation_exception_filter_1.HttpExceptionFilter());
         yield app.listen(5000);
-        console.log('server is listening on port 3000');
+        console.log('server is listening on port 5000');
     });
 }
 bootstrap();

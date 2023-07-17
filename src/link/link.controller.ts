@@ -11,7 +11,6 @@ import {
 	Res,
 } from '@nestjs/common'
 import { LinkService } from './link.service'
-import { Link } from './link.entity'
 import { CreateLinkDto, UpdateLinkParamsDto, UpdateLinkBodyDto } from './dto/link.dto'
 import { Response } from 'express'
 
@@ -80,7 +79,7 @@ export class LinkController {
 		@Query() params: UpdateLinkParamsDto,
 	): Promise<Response | void> {
 		const id = Number(params.id)
-		const result = await this.linkService.deleteLink(id)
+		await this.linkService.deleteLink(id)
 
 		return res.status(202).json({
 			statusCode: 202,
