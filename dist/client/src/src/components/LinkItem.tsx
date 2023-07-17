@@ -48,7 +48,7 @@ export const LinkItem = ({
       <div className="feed-icon">{linkIcon}</div>
       <div className="item-content">
         <h4>{name}</h4>
-        <a href={url}>{url}</a>
+        <a target="_blank" rel="noopener" href={url}>{url}</a>
       </div>
       <div className="item-icons">
         <button className="delete-button" onClick={deleteHandler}>

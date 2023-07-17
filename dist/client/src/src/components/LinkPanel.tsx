@@ -92,7 +92,7 @@ export const LinkPanel = () => {
   const validationHandle = (body: any) => {
     const { url } = body
     if (!url) return false
-    if (url.length < 8 && url.length > 50) return false
+    if (url.length < 8 || url.length > 50) return false
     return true
   }
 

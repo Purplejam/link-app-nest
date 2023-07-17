@@ -38,8 +38,8 @@ export const CreateLink = () => {
   const validationHandle = (body: any) => {
     const { name, url } = body
     if (!name || !url) return false
-    if (name.length < 3 && name.length > 25) return false
-    if (url.length < 8 && url.length > 50) return false
+    if (name.length < 3 || name.length > 25) return false
+    if (url.length < 8 || url.length > 50) return false
     return true
   }
 
