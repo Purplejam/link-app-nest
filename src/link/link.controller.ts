@@ -46,9 +46,6 @@ export class LinkController {
 	@Get(':name')
 	async findOneByName(@Param('name') name: string, @Res() res: Response): Promise<Response | void> {
 		const link = await this.linkService.findOneByName(name)
-		if (!link) {
-			throw new NotFoundException('Link not found with this id')
-		}
 		return res.status(200).json({
 			statusCode: 200,
 			link,
@@ -64,9 +61,6 @@ export class LinkController {
 		const { url } = body
 		const id = Number(params.id)
 		const link = await this.linkService.updateLink(id, url)
-		if (!link) {
-			throw new NotFoundException('Link not found')
-		}
 		return res.status(201).json({
 			statusCode: 201,
 			link,
