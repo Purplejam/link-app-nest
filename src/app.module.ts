@@ -4,6 +4,7 @@ import { LinkModule } from './link/link.module'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import { join } from 'path'
 
+
 @Module({
 	imports: [
 		ServeStaticModule.forRoot({

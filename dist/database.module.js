@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DatabaseModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const config_1 = require("@nestjs/config");
 let DatabaseModule = class DatabaseModule {
     constructor() {
         console.log('Connected to the MySQL database');
@@ -20,13 +21,14 @@ let DatabaseModule = class DatabaseModule {
 DatabaseModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            config_1.ConfigModule.forRoot(),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'mysql',
-                host: 'sql8.freemysqlhosting.net',
+                host: process.env.DB_HOST_NAME,
                 port: 3306,
-                username: 'sql8632793',
-                password: 'DDfPjZa8Zm',
-                database: 'sql8632793',
+                username: process.env.DB_HOST_USER,
+                password: process.env.DB_HOST_PASSWORD,
+                database: process.env.DB_HOST_BASENAME,
                 entities: [__dirname + '/**/*.entity{.ts,.js}'],
                 synchronize: true,
             }),

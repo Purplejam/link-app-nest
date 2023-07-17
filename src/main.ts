@@ -8,9 +8,10 @@ import * as express from 'express'
 import { Request, Response } from 'express'
 import * as path from 'path'
 
+
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule)
-
+	
 	app.enableCors()
 
 	app.useGlobalPipes(
