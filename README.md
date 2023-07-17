@@ -23,4 +23,5 @@ The source code of the React application can be found in the `dist/client/` dire
 ## Deployment
 
 The application is deployed on Render. You can access the deployed application using the following link: [Link Management App](https://link-crud.onrender.com/)
+
 ---
