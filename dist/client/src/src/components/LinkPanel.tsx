@@ -21,17 +21,18 @@ export const LinkPanel = () => {
   const dispatch: ThunkDispatch<AppStateType, void, Action> = useDispatch()
   const { isLoading, links }: ILinkState = useSelector((state: AppStateType) => state.links)
 
-  //Delete link state
+  //DELETE link state
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [currentLinkId, setCurrentLinkId] = useState('')
+  const [currentLinkName, setCurrentLinkName] = useState('')
 
-  //Update link state
+  //UPDATE link state
   const [openEditModal, setOpenEditModal] = useState(false)
   const [nameValue, setNameValue] = useState('')
   const [urlValue, setUrlValue] = useState('')
   const [inputError, setInputError] = useState(false)
 
-  //Delete link handlers
+  //DELETE link handlers
   const handleDeleteModalOpen = () => {
     setOpenDeleteModal(!openDeleteModal)
   }
@@ -40,7 +41,7 @@ export const LinkPanel = () => {
     setOpenDeleteModal(false)
   }
 
-  //Edit link handlers
+  //DELETE link handlers
   const handleEditModalOpen = () => {
     setOpenEditModal(!openEditModal)
   }
@@ -49,7 +50,7 @@ export const LinkPanel = () => {
     setOpenEditModal(false)
   }
 
-  //Delete link handler
+  //DELETE link submit handler
   const handleRemoveSubmit = async () => {
     handleDeleteModalClose()
     //const url = 'http://localhost:5000/links'
@@ -82,50 +83,44 @@ export const LinkPanel = () => {
       } else {
         dispatch(throwErrorAction(error.message))
       }
-
       //Stop fetching items on error
       dispatch({ type: 'FETCHING_LINKS_STOP' })
     }
   }
 
-  //Update link validation and submit
+  //UPDATE link validation and submit
   const validationHandle = (body: any) => {
-    const { name, url } = body
-    if (!name || !url) return false
-    if (name.length < 3 && name.length > 25) return false
+    const { url } = body
+    if (!url) return false
     if (url.length < 8 && url.length > 50) return false
     return true
   }
 
   const clearInputsHandler = () => {
-    setNameValue('')
     setUrlValue('')
   }
 
-  //Update link handler
-  const handleEditSubmit = async (e: any) => {
+  //UPDATE link submit handler
+  const handleEditSubmit = async () => {
     //Validation inputs, if false – return
-    e.preventDefault()
     setInputError(false)
-    if (!validationHandle({ name: nameValue, url: urlValue })) {
+    if (!validationHandle({ url: urlValue })) {
       setInputError(true)
       return
     }
-
     //Link, body and oprions request
     //const urlAxios = 'http://localhost:5000/links'
     const urlAxios = '/links'
     const body = {
-      name: nameValue,
       url: urlValue,
     }
+
     const options = {
       headers: { 'Content-Type': 'application/json' },
       params: {
         id: currentLinkId,
       },
     }
-
     //Close modal, clear inputs, fetch items
     handleEditModalClose()
     clearInputsHandler()
@@ -136,7 +131,7 @@ export const LinkPanel = () => {
       await axios.patch(urlAxios, body, options)
       //Fetch updated items and create success message
       dispatch(getAllLinksAction())
-      dispatch(setAlertAction(`${body.name} link was updated!`))
+      dispatch(setAlertAction(`Link was updated!`))
     } catch (error: any) {
       //If error from axios - find all possible messages and throw it to error state
       if (error.name === 'AxiosError') {
@@ -153,7 +148,6 @@ export const LinkPanel = () => {
       } else {
         dispatch(throwErrorAction(error.message))
       }
-
       //Stop fetching items on error
       dispatch({ type: 'FETCHING_LINKS_STOP' })
     }
@@ -179,6 +173,7 @@ export const LinkPanel = () => {
                 handleEditModalOpen={handleEditModalOpen}
                 setNameValue={setNameValue}
                 setUrlValue={setUrlValue}
+                setCurrentLinkName={setCurrentLinkName}
               />
             )
           })}
@@ -217,19 +212,8 @@ export const LinkPanel = () => {
           aria-describedby="modal-modal-description"
         >
           <CreateLinkModal>
-            <h3>Update Current Link</h3>
+            <h3>{currentLinkName}</h3>
             <Box component="form" autoComplete="off" onSubmit={handleEditSubmit}>
-              <TextField
-                size="small"
-                error={inputError}
-                id="outlined-error"
-                label="Name"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNameValue(e.target.value)}
-                value={nameValue}
-                fullWidth
-                margin="dense"
-                helperText="Name must contain more than 3 characters and less than 25"
-              />
               <TextField
                 size="small"
                 error={inputError}

@@ -11,6 +11,7 @@ interface ILinkItemProps {
   handleEditModalOpen: Function
   setNameValue: Function
   setUrlValue: Function
+  setCurrentLinkName: Function
 }
 
 export const LinkItem = ({
@@ -22,6 +23,7 @@ export const LinkItem = ({
   handleEditModalOpen,
   setNameValue,
   setUrlValue,
+  setCurrentLinkName,
 }: ILinkItemProps) => {
   const linkIcon = <FontAwesomeIcon icon={faLink} />
   const trashIcon = <FontAwesomeIcon icon={faTrashCan} />
@@ -35,6 +37,7 @@ export const LinkItem = ({
 
   const editHandler = () => {
     setCurrentLinkId(id)
+    setCurrentLinkName(name)
     setNameValue(name)
     setUrlValue(url)
     handleEditModalOpen()

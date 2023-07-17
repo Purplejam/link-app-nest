@@ -61,9 +61,9 @@ export class LinkController {
 		@Body() body: UpdateLinkBodyDto,
 		@Res() res: Response,
 	): Promise<Response | void> {
-		const { name, url } = body
+		const { url } = body
 		const id = Number(params.id)
-		const link = await this.linkService.updateLink(id, name, url)
+		const link = await this.linkService.updateLink(id, url)
 		if (!link) {
 			throw new NotFoundException('Link not found')
 		}

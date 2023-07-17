@@ -40,12 +40,6 @@ exports.UpdateLinkParamsDto = UpdateLinkParamsDto;
 class UpdateLinkBodyDto {
 }
 __decorate([
-    (0, custom_name_validator_1.LinkNameExists)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.Length)(3, 25),
-    __metadata("design:type", String)
-], UpdateLinkBodyDto.prototype, "name", void 0);
-__decorate([
     (0, custom_url_validator_1.UrlIsCorrect)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.Length)(8, 50),

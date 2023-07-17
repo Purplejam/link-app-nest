@@ -22,11 +22,6 @@ export class UpdateLinkParamsDto {
 }
 
 export class UpdateLinkBodyDto {
-	@LinkNameExists()
-	@IsNotEmpty()
-	@Length(3, 25)
-	name: string
-
 	@UrlIsCorrect()
 	@IsNotEmpty()
 	@Length(8, 50)

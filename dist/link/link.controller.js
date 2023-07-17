@@ -65,9 +65,9 @@ let LinkController = class LinkController {
     }
     updateLink(params, body, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { name, url } = body;
+            const { url } = body;
             const id = Number(params.id);
-            const link = yield this.linkService.updateLink(id, name, url);
+            const link = yield this.linkService.updateLink(id, url);
             if (!link) {
                 throw new common_1.NotFoundException('Link not found');
             }

@@ -29,14 +29,13 @@ export class LinkService {
 		return this.linkRepository.findOne({ where: { id } })
 	}
 
-	async updateLink(id: number, name: string, url: string): Promise<Link> {
+	async updateLink(id: number, url: string): Promise<Link> {
 		const link = await this.linkRepository.findOne({ where: { id } })
 
 		if (!link) {
 			throw new NotFoundException('Link not found')
 		}
 
-		link.name = name
 		link.url = url
 
 		return this.linkRepository.save(link)

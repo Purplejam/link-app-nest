@@ -53,13 +53,12 @@ let LinkService = class LinkService {
             return this.linkRepository.findOne({ where: { id } });
         });
     }
-    updateLink(id, name, url) {
+    updateLink(id, url) {
         return __awaiter(this, void 0, void 0, function* () {
             const link = yield this.linkRepository.findOne({ where: { id } });
             if (!link) {
                 throw new common_1.NotFoundException('Link not found');
             }
-            link.name = name;
             link.url = url;
             return this.linkRepository.save(link);
         });
